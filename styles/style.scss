@@ -1,16 +1,61 @@
 a.unline {
-  text-decoration: none;
+      text-decoration: none;
 }
 
 img {
-  object-fit: contain;
-  max-width: 100%;
+      object-fit: contain;
+      max-width: 100%;
 }
 
 .primary-image {
-  height: 300px;
+      height: 300px;
 }
 
 .images {
-  height: 150px;
+      height: 150px;
+}
+
+.position-relative {
+      position: relative !important;
+}
+
+.position-absolute {
+      position: absolute !important;
+}
+
+.top-3 {
+      top: 16px;
+}
+
+.start-3 {
+      right: 16px;
+}
+
+.my-6 {
+      margin-top: 4rem !important;
+      margin-bottom: 4rem !important;
+}
+
+.pointer {
+      cursor: pointer;
+}
+
+.overlay {
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
+      background-size: 100%;
+      background-position-y: bottom;
+      background-repeat: no-repeat;
+}
+
+.px-3 {
+      padding-right: 1rem !important;
+      padding-left: 1rem !important;
+}
+
+.w-100 {
+      width: 100% !important;
+}
+
+.bottom-0 {
+      bottom: 0 !important;
 }

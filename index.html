@@ -13,14 +13,64 @@
     <title>Vue Learning</title>
   </head>
   <body>
-    <div class="container">
-      <a href="./week1/index.html" class="h4 link-secondary unline"
-        >第一週 - 從函式拆解認識設計模式</a
-      >
-      <br />
-      <a href="./week2/login.html" class="h4 link-secondary unline"
-        >第二週 - RESTful API 串接</a
-      >
-    </div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Vue Learning</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Portfolio</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Note
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+      <div class="main">
+            <div class="container">
+                  <div class="my-6">
+                        <h3 class="h4 text-center mb-3">每週任務</h3>
+                  </div>
+                  <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                              <div class="card text-center">
+                                    <div class="position-relative" style="height: 312px;">
+                                          <img src="./public/week1.png" alt="week1" class="pointer card-img-top border" style="height: 312px ;">
+                                          <span class="badge rounded-pill bg-primary position-absolute start-3 top-3">從函式拆解認識設計模式</span>
+                                    </div>
+                                    <div class="card-body">
+                                          <a href="./week1/index.html" class="link-secondary unline">第一週任務</a>
+                                    </div>
+                              </div>
+                        </div>
+                  
+                        <div class="col-md-6 col-lg-4">
+                              <div class="card text-center">
+                                    <div class="position-relative" style="height: 312px;">
+                                          <img src="./public/week2.png" alt="week2" class="pointer card-img-top border" style="height: 312px ;">
+                                          <span class="badge rounded-pill bg-primary position-absolute start-3 top-3">RESTful API串接</span>
+                  
+                                    </div>
+                                    <div class="card-body">
+                                          <a href="./week2/login.html" class="link-secondary unline">第二週任務</a>
+                                    </div>
+                              </div>
+                        </div>
+                      </div>
+            </div>
+      </div>
   </body>
 </html>
