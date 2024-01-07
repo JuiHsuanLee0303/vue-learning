@@ -17,14 +17,16 @@
   <body>
     <div id="app">
       <div class="container">
+        <p v-html="showHTML"></p>
         <div class="row justify-content-center">
           <h1 class="h3 mb-3 font-weight-normal">請先登入</h1>
           <div class="col-8">
-            <form id="form" class="form-signin">
+            <form id="form" class="form-signin" @submit.prevent="login">
               <div class="form-floating mb-3">
                 <input
                   type="email"
                   class="form-control"
+                  v-model="user.username"
                   id="username"
                   placeholder="name@example.com"
                   required
@@ -36,6 +38,7 @@
                 <input
                   type="password"
                   class="form-control"
+                  v-model="user.password"
                   id="password"
                   placeholder="Password"
                   required
@@ -44,7 +47,7 @@
               </div>
               <button
                 class="btn btn-lg btn-primary w-100 mt-3"
-                type="button"
+                type="submit"
                 id="login"
               >
                 登入
@@ -71,6 +74,6 @@
       integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
       crossorigin="anonymous"
     ></script>
-    <script src="./login.js"></script>
+    <script src="./login.js" type="module"></script>
   </body>
 </html>
