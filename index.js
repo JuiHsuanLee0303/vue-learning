@@ -32,6 +32,18 @@ const app = createApp({
                               </div>
                         </div>
                   </div>
+                  <div class="col-md-6 col-lg-4">
+                  <div class="card text-center">
+                        <div class="position-relative" style="height: 312px;">
+                              <img src="./public/week2.png" alt="week2" class="pointer card-img-top border" style="height: 312px ;">
+                              <span class="badge rounded-pill bg-primary position-absolute start-3 top-3">熟練 Vue.js</span>
+      
+                        </div>
+                        <div class="card-body">
+                              <a href="./week3/login.html" class="link-secondary unline">第三週任務</a>
+                        </div>
+                  </div>
+            </div>
                 </div>
       </div>`,
                   noteHTML: `<iframe src="https://hackmd.io/@HQGmhgdNRFiHFoE-iYpnbA/SJmlr-TzT" frameborder="0" height="100%" width="100%"></iframe>`,

@@ -16,12 +16,12 @@ const app = createApp({
       },
       methods: {
             login() {
-                  console.log(this.user);
+                  // console.log(this.user);
 
                   axios.post(`${this.url}/v2/admin/signin`, this.user)
                         .then((res) => {
                               this.showHTML = "";
-                              console.log(res);
+                              // console.log(res);
                               const { token, expired } = res.data;
                               document.cookie = `hexToken=${token}; expires=${new Date(
                                     expired
@@ -52,7 +52,7 @@ const app = createApp({
 
                   axios.post(`${this.url}/api/user/check`)
                         .then((res) => {
-                              console.log(res);
+                              // console.log(res);
                               window.location.assign("./product.html");
                         })
                         .catch((err) => {
