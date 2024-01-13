@@ -77,6 +77,8 @@ const app = createApp({
           console.log(res.data);
           this.getData();
           this.addRes = "新增成功";
+          this.inputData = {};
+          this.showImgUrl = "";
         })
         .catch((err) => {
           console.log(err.data);
