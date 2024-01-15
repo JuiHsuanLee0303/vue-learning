@@ -11,10 +11,11 @@
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="../styles/style_week3.css" />
   </head>
 
   <body>
-    <div id="app">
+    <div id="app" v-cloak>
       <div class="container">
         <div class="text-end mt-4">
           <button
@@ -123,7 +124,7 @@
                     id="delProductBtn"
                     data-bs-toggle="modal"
                     data-bs-target="#delProductModal"
-                    @click="addDelId(item[1].id)"
+                    @click="delId = item[1].id"
                   >
                     刪除
                   </button>
@@ -176,7 +177,7 @@
                   <div v-if="!showImgUrl">
                     <button
                       class="btn btn-outline-primary btn-sm d-block w-100"
-                      @click="addImgUrl"
+                      @click="showImgUrl = inputData.imgUrl"
                     >
                       新增圖片
                     </button>
@@ -360,6 +361,7 @@
       </div>
       <!-- Modal -->
     </div>
+    <div id="loader"></div>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"

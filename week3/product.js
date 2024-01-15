@@ -24,13 +24,10 @@ const app = createApp({
       is_edit: "",
       editProduct: {},
       ascending: false,
-      sortBy: "price",
+      sortBy: "",
     };
   },
   methods: {
-    test() {
-      console.log(`${this.sortBy}`);
-    },
     checkLogin() {
       const token = document.cookie.replace(
         /(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/,
@@ -60,9 +57,6 @@ const app = createApp({
           console.log(error.data);
         });
     },
-    addImgUrl() {
-      this.showImgUrl = this.inputData.imgUrl;
-    },
     delImgUrl() {
       this.showImgUrl = "";
       this.inputData.imgUrl = "";
@@ -81,9 +75,6 @@ const app = createApp({
           console.log(err.data);
           this.addRes = "新增失敗";
         });
-    },
-    addDelId(id) {
-      this.delId = id;
     },
     delProduct() {
       axios
@@ -144,12 +135,13 @@ const app = createApp({
   },
   computed: {
     sortProducts() {
-      console.log(this.sortBy);
-      return this.productData.sort((a, b) =>
+      this.productData = this.productData.sort((a, b) =>
         this.ascending
           ? a[1][this.sortBy] - b[1][this.sortBy]
           : b[1][this.sortBy] - a[1][this.sortBy]
       );
+      this.sortBy = "";
+      return this.productData;
     },
   },
   watch: {
