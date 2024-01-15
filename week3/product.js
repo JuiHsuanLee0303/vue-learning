@@ -6,7 +6,7 @@ const path = "warren-lee";
 const app = createApp({
   data() {
     return {
-      productData: {},
+      productData: [],
       inputData: {
         imgUrl: "",
         title: "",
@@ -21,12 +21,16 @@ const app = createApp({
       showImgUrl: "",
       addRes: "",
       delId: "",
-      is_edit: [],
+      is_edit: "",
       editProduct: {},
-      tableClass: [],
+      ascending: false,
+      sortBy: "price",
     };
   },
   methods: {
+    test() {
+      console.log(`${this.sortBy}`);
+    },
     checkLogin() {
       const token = document.cookie.replace(
         /(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/,
@@ -49,15 +53,8 @@ const app = createApp({
         .get(`${url}/api/${path}/admin/products/all`)
         .then((res) => {
           // console.log(res.data);
-          this.productData = { ...res.data.products };
-          const entries = Object.entries(this.productData);
-          entries.forEach((entry) => {
-            this.is_edit.push([entry[0], false]);
-            !entry[1].is_enabled
-              ? this.tableClass.push([entry[0], "table-danger"])
-              : this.tableClass.push([entry[0], ""]);
-          });
-          console.log(this.tableClass);
+          this.productData = Object.entries(res.data.products);
+          //console.log(this.productData);
         })
         .catch((error) => {
           console.log(error.data);
@@ -100,30 +97,60 @@ const app = createApp({
         });
     },
     startEdit(id) {
-      if (this.is_edit[id]) {
+      if (this.is_edit === id) {
         axios
           .put(`${url}/api/${path}/admin/product/${id}`, {
-            data: this.editProduct,
+            data: this.editProduct[1],
           })
           .then((res) => {
             console.log(res.data);
             this.getData();
           })
           .catch((err) => {
+            console.log(this.editProduct[1]);
             console.log(err.data);
           });
-        this.is_edit[id] = false;
-        this.editProduct = {};
+        this.is_edit = "";
+        this.editProduct = [];
+      } else if (this.is_edit === "") {
+        this.is_edit = id;
+        this.editProduct = this.productData.find(
+          (item, index, array) => item[1].id === id
+        );
       } else {
-        this.is_edit[id] = true;
-        this.editProduct = { ...this.productData[id] };
+        axios
+          .put(`${url}/api/${path}/admin/product/${this.is_edit}`, {
+            data: this.editProduct[1],
+          })
+          .then((res) => {
+            console.log(res.data);
+            this.getData();
+          })
+          .catch((err) => {
+            console.log(this.editProduct[1]);
+            console.log(err.data);
+          });
+        this.is_edit = id;
+        this.editProduct = this.productData.find(
+          (item, index, array) => item[1].id === id
+        );
       }
-      console.log(this.editProduct);
+      console.log(this.is_edit);
     },
   },
   mounted() {
     this.checkLogin();
     this.getData();
+  },
+  computed: {
+    sortProducts() {
+      console.log(this.sortBy);
+      return this.productData.sort((a, b) =>
+        this.ascending
+          ? a[1][this.sortBy] - b[1][this.sortBy]
+          : b[1][this.sortBy] - a[1][this.sortBy]
+      );
+    },
   },
   watch: {
     //     input(newValue) {

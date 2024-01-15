@@ -33,66 +33,66 @@
               <th width="100">分類</th>
               <th width="150">產品名稱</th>
               <th width="500">產品描述</th>
-              <th width="80">原價</th>
-              <th width="80">售價</th>
+              <th width="80" @click="sortBy = 'origin_price'">原價</th>
+              <th width="80" @click="sortBy = 'price'">售價</th>
               <th width="100">是否啟用</th>
               <th width="120">編輯</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in productData">
+            <tr v-for="item in sortProducts">
               <td>
-                <p v-if="!is_edit[item.id]">{{ item.category }}</p>
+                <p v-if="is_edit != item[1].id">{{ item[1].category }}</p>
                 <input
                   type="text"
                   class="form-control"
                   v-else
-                  v-model="editProduct.category"
+                  v-model="editProduct[1].category"
                 />
               </td>
               <td>
-                <p v-if="!is_edit[item.id]">{{ item.title }}</p>
+                <p v-if="is_edit != item[1].id">{{ item[1].title }}</p>
                 <input
                   type="text"
                   class="form-control"
                   v-else
-                  v-model="editProduct.title"
+                  v-model="editProduct[1].title"
                 />
               </td>
               <td>
-                <p v-if="!is_edit[item.id]">{{ item.description }}</p>
+                <p v-if="is_edit != item[1].id">{{ item[1].description }}</p>
                 <input
                   type="text"
                   class="form-control"
                   v-else
-                  v-model="editProduct.description"
+                  v-model="editProduct[1].description"
                 />
               </td>
               <td class="text-end">
-                <p v-if="!is_edit[item.id]">{{ item.origin_price }}</p>
+                <p v-if="is_edit != item[1].id">{{ item[1].origin_price }}</p>
                 <input
                   type="number"
                   class="form-control"
                   v-else
-                  v-model="editProduct.origin_price"
+                  v-model="editProduct[1].origin_price"
                 />
               </td>
               <td class="text-end">
-                <p v-if="!is_edit[item.id]">{{ item.price }}</p>
+                <p v-if="is_edit != item[1].id">{{ item[1].price }}</p>
                 <input
                   type="number"
                   class="form-control"
                   v-else
-                  v-model="editProduct.price"
+                  v-model="editProduct[1].price"
                 />
               </td>
               <td>
                 <span
                   class="text-success"
-                  v-if="item.is_enabled && !is_edit[item.id]"
+                  v-if="item[1].is_enabled && is_edit != item[1].id"
                   >啟用</span
                 >
-                <span v-else-if="!is_edit[item.id]">未啟用</span>
+                <span v-else-if="is_edit != item[1].id">未啟用</span>
                 <div v-else>
                   <input
                     id="edit_is_enabled"
@@ -100,7 +100,7 @@
                     type="checkbox"
                     :true-value="1"
                     :false-value="0"
-                    v-model="editProduct.is_enabled"
+                    v-model="editProduct[1].is_enabled"
                   />
 
                   <label class="form-check-label" for="edit_is_enabled"
@@ -113,7 +113,7 @@
                   <button
                     type="button"
                     class="btn btn-outline-primary btn-sm"
-                    @click="startEdit(item.id)"
+                    @click="startEdit(item[1].id)"
                   >
                     編輯
                   </button>
@@ -123,7 +123,7 @@
                     id="delProductBtn"
                     data-bs-toggle="modal"
                     data-bs-target="#delProductModal"
-                    @click="addDelId(item.id)"
+                    @click="addDelId(item[1].id)"
                   >
                     刪除
                   </button>
