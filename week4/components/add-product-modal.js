@@ -9,11 +9,24 @@ export default {
     addProduct() {
       this.$emit("addProduct", this.inputProduct);
       this.inputProduct = {};
-      this.showImgUrl = "";
     },
     delImgUrl() {
-      this.showImgUrl = "";
       this.inputProduct.imgUrl = "";
+    },
+    uploadImage() {
+      const url = "https://vue3-course-api.hexschool.io/v2";
+      const path = "warren-lee";
+      const fileInput = document.getElementById("file");
+      const file = fileInput.files[0];
+      console.log(file);
+      const formData = new FormData();
+      formData.append("file-to-upload", file);
+      axios.post(`${url}/api/${path}/admin/upload`, formData).then((res) => {
+        console.log(res.data.imageUrl);
+        this.inputProduct.imgUrl = res.data.imageUrl;
+      }).catch((err) => {
+        console.log(err);
+      })
     },
   },
   template: `
@@ -42,28 +55,29 @@ export default {
           <div class="row">
             <div class="col-sm-4">
               <div class="mb-2">
-                <div class="mb-3">
-                  <label for="imageUrl" class="form-label"
-                    >輸入圖片網址</label
+                <div class="input-group">
+                  <input 
+                    type="file" 
+                    class="form-control" 
+                    id="file"
+                    name="file-to-upload" 
+                    aria-describedby="inputGroupFileAddon04" 
+                    aria-label="Upload"
                   >
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="請輸入圖片連結"
-                    v-model="inputProduct.imgUrl"
-                  />
+                  <button 
+                    class="btn btn-outline-primary" 
+                    type="button" 
+                    id="inputGroupFileAddon04"
+                    @click="uploadImage"
+                  >
+                    上傳圖片
+                  </button>
                 </div>
-                <img class="img-fluid" :src="showImgUrl" alt="" />
+                <img class="img-fluid" :src="inputProduct.imgUrl" alt="" />
               </div>
-              <div v-if="!showImgUrl">
-                <button
-                  class="btn btn-outline-primary btn-sm d-block w-100"
-                  @click="showImgUrl = inputProduct.imgUrl"
-                >
-                  新增圖片
-                </button>
+              <div>
               </div>
-              <div v-else>
+              <div v-if="inputProduct.imgUrl != undefined && inputProduct.imgUrl != ''">
                 <button
                   class="btn btn-outline-danger btn-sm d-block w-100"
                   @click="delImgUrl"
@@ -172,6 +186,19 @@ export default {
                   />
                   <label class="form-check-label" for="is_enabled"
                     >是否啟用</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    id="is_recommended"
+                    class="form-check-input"
+                    type="checkbox"
+                    :true-value="1"
+                    :false-value="0"
+                    v-model="inputProduct.is_recommended"
+                  />
+                  <label class="form-check-label" for="is_recommended"
+                    >是否推薦</label
                   >
                 </div>
               </div>

@@ -160,6 +160,19 @@ export default {
                         >是否啟用</label
                       >
                     </div>
+                    <div class="form-check">
+                      <input
+                        id="is_recommended"
+                        class="form-check-input"
+                        type="checkbox"
+                        :true-value="1"
+                        :false-value="0"
+                        v-model="nowEditProduct.is_recommended"
+                      />
+                      <label class="form-check-label" for="is_recommended"
+                        >是否推薦</label
+                      >
+                    </div>
                   </div>
                 </div>
               </div>

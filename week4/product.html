@@ -28,17 +28,17 @@
             建立新的產品
           </button>
         </div>
-        <table class="table mt-4">
+        <table class="table table-striped mt-4">
           <thead>
             <tr>
               <th width="100">分類</th>
               <th width="150">產品名稱</th>
-              <th width="500">產品描述</th>
               <!-- <th width="80" @click="sortBy = 'origin_price'">原價</th> -->
               <!-- <th width="80" @click="sortBy = 'price'">售價</th> -->
               <th width="80">原價</th>
               <th width="80">售價</th>
               <th width="100">是否啟用</th>
+              <th width="100">是否推薦</th>
               <th width="120">編輯</th>
             </tr>
           </thead>
@@ -51,17 +51,18 @@
                 <p>{{ item[1].title }}</p>
               </td>
               <td>
-                <p>{{ item[1].description }}</p>
-              </td>
-              <td class="text-end">
                 <p>{{ item[1].origin_price }}</p>
               </td>
-              <td class="text-end">
+              <td>
                 <p>{{ item[1].price }}</p>
               </td>
               <td>
                 <span class="text-success" v-if="item[1].is_enabled">啟用</span>
                 <span v-else>未啟用</span>
+              </td>
+              <td>
+                <span class="text-success" v-if="item[1].is_recommended">推薦</span>
+                <span v-else>未推薦</span>
               </td>
               <td>
                 <div class="btn-group">

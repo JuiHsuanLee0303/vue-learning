@@ -12,9 +12,7 @@ const app = createApp({
   data() {
     return {
       productData: [],
-      showImgUrl: "",
       delId: "",
-      is_edit: "",
       // ascending: false,
       // sortBy: "",
       nowEditProductID: "",
@@ -55,6 +53,7 @@ const app = createApp({
         });
     },
     getData() {
+      this.pagesList = [];
       axios
         .get(`${url}/api/${path}/admin/products/all`)
         .then((res) => {
