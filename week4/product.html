@@ -21,9 +21,8 @@
           <button
             type="button"
             class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#addProductModal"
-            id="addProduct"
+            id="addProductBtn"
+            @click="startAdd"
           >
             建立新的產品
           </button>
@@ -69,9 +68,7 @@
                   <button
                     type="button"
                     class="btn btn-outline-primary btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#editProductModal"
-                    id="editProduct"
+                    id="editProductBtn"
                     @click="startEdit(item[0])"
                   >
                     編輯
@@ -93,15 +90,10 @@
         </table>
       </div>
       <!-- Modal -->
-      <!-- Add Product -->
-      <add-product-modal @add-product="addProduct"></add-product-modal>
+      <!-- Add / Edit Product Modal-->
+      <product-modal :mode="mode" :input-product="inputProduct" @output-product="outputProduct"></product-modal>
       <!-- Delete Product -->
       <delete-product-modal @del-product="delProduct"></delete-product-modal>
-      <!-- Edit Product -->
-      <edit-product-modal
-        :now-edit-product="nowEditProduct"
-        @edit-product="editProduct"
-      ></edit-product-modal>
       <!-- Message Modal -->
       <message-modal
         :response-message="responseMessage"

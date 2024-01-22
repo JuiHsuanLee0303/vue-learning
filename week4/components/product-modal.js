@@ -1,14 +1,12 @@
 export default {
   data() {
-    return {
-      inputProduct: {},
-      showImgUrl: "",
-    };
+    return {};
   },
+  // mode
+  props: ["inputProduct", "mode"],
   methods: {
-    addProduct() {
-      this.$emit("addProduct", this.inputProduct);
-      this.inputProduct = {};
+    outputProduct() {
+      this.$emit("outputProduct", this.inputProduct);
     },
     delImgUrl() {
       this.inputProduct.imgUrl = "";
@@ -21,28 +19,31 @@ export default {
       console.log(file);
       const formData = new FormData();
       formData.append("file-to-upload", file);
-      axios.post(`${url}/api/${path}/admin/upload`, formData).then((res) => {
-        console.log(res.data.imageUrl);
-        this.inputProduct.imgUrl = res.data.imageUrl;
-      }).catch((err) => {
-        console.log(err);
-      })
+      axios
+        .post(`${url}/api/${path}/admin/upload`, formData)
+        .then((res) => {
+          console.log(res.data.imageUrl);
+          this.inputProduct.imgUrl = res.data.imageUrl;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   template: `
-    <div
-    id="addProductModal"
-    ref="addProductModal"
+  <div
+    id="productModal"
+    ref="productModal"
     class="modal fade"
     tabindex="-1"
-    aria-labelledby="addProductModalLabel"
+    aria-labelledby="productModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-xl">
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
-          <h5 id="addProductModalLabel" class="modal-title">
-            <span>新增產品</span>
+          <h5 id="productModalLabel" class="modal-title">
+            <span>{{mode}}產品</span>
           </h5>
           <button
             type="button"
@@ -215,8 +216,9 @@ export default {
           </button>
           <button
             type="button"
+            id="addConfirmBtn"
             class="btn btn-outline-primary"
-            @click="addProduct"
+            @click="outputProduct"
           >
             確認
           </button>

@@ -1,17 +1,24 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 import messageModal from "./components/message-modal.js";
 import deleteProductModal from "./components/delete-product-modal.js";
-import editProductModal from "./components/edit-product-modal.js";
-import addProductModal from "./components/add-product-modal.js";
+import productModal from "./components/product-modal.js";
 import pagination from "./components/pagination.js";
 
 const url = "https://vue3-course-api.hexschool.io/v2";
 const path = "warren-lee";
 
+let productModalNew = "";
+let addProductModalNew = "";
+let editProductModalNew = "";
+let messageModalNew = "";
+let deleteProductModalNew = "";
+
+
 const app = createApp({
   data() {
     return {
       productData: [],
+      inputProduct: {},
       delId: "",
       // ascending: false,
       // sortBy: "",
@@ -32,6 +39,7 @@ const app = createApp({
       showProductsNumber: 10,
       showProductsList: [],
       pagesList: [],
+      mode: "",
     };
   },
   methods: {
@@ -67,18 +75,16 @@ const app = createApp({
           console.log(error.data);
         });
     },
-    addProduct(val) {
-      const inputProduct = val;
+    addProduct(product) {
       axios
-        .post(`${url}/api/${path}/admin/product`, { data: inputProduct })
+        .post(`${url}/api/${path}/admin/product`, { data: product })
         .then((res) => {
           this.responseMessage = "新增產品成功",
           this.messageModalClass['bg-primary'] = true;
           this.messageModalClass['bg-danger'] = false;
           this.messageBtnClass['btn-primary'] = true;
           this.messageBtnClass['btn-danger'] = false;
-          var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
-          messageModal.show();
+          messageModalNew.show();
           this.getData();
         })
         .catch((err) => {
@@ -87,8 +93,7 @@ const app = createApp({
           this.messageModalClass['bg-primary'] = false;
           this.messageBtnClass['btn-primary'] = false;
           this.messageBtnClass['btn-danger'] = true;
-          var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
-          messageModal.show();
+          messageModalNew.show();
         });
     },
     delProduct() {
@@ -101,17 +106,25 @@ const app = createApp({
           console.log(err.data);
         });
     },
+    startAdd() {
+      this.mode = "新增";
+      this.inputProduct = {};
+      console.log(addProductModalNew);
+      productModalNew.show();
+    },
     startEdit(id) {
+      this.mode = "編輯";
       this.nowEditProductID = id;
       const tempProduct = this.productData.find(
         (item, index, array) => item[1].id === id
       );
-      this.nowEditProduct = JSON.parse(JSON.stringify(tempProduct[1]));
+      this.inputProduct = JSON.parse(JSON.stringify(tempProduct[1]));
+      productModalNew.show();
     },
-    editProduct() {
+    editProduct(product) {
       axios
         .put(`${url}/api/${path}/admin/product/${this.nowEditProductID}`, {
-          data: this.nowEditProduct,
+          data: product,
         })
         .then((res) => {
           this.responseMessage = "編輯產品成功",
@@ -119,10 +132,7 @@ const app = createApp({
           this.messageModalClass['bg-danger'] = false;
           this.messageBtnClass['btn-primary'] = true;
           this.messageBtnClass['btn-danger'] = false;
-          var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
-          messageModal.show();
-          // this.nowEditProduct = {};
-          // this.nowEditProductID = "";
+          messageModalNew.show();
           this.getData();
         })
         .catch((err) => {
@@ -131,43 +141,40 @@ const app = createApp({
           this.messageModalClass['bg-primary'] = false;
           this.messageBtnClass['btn-primary'] = false;
           this.messageBtnClass['btn-danger'] = true;
-          var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
-          messageModal.show();
+          messageModalNew.show();
           console.log(err.data);
         });
     },
     messageConfirm() {
-      var productModal = new bootstrap.Modal(document.getElementById('productModal'));
-      productModal.hide();
-      var editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'));
-      editProductModal.hide();
+      console.log(productModalNew);
+      if(this.responseMessage.slice(-2) === "成功") {
+        productModalNew.hide();
+      }
     },
     changePage(num) {
       this.showProductsList = [];
       for (let i = (num - 1) * 10; i < num * 10 && i < this.productData.length; i++) {
         this.showProductsList.push(this.productData[i]);
       }
-    }
+    },
+    outputProduct(product) {
+      if (this.mode === "新增") {
+        this.addProduct(product);
+      } else if (this.mode === "編輯") {
+        this.editProduct(product);
+      }
+    },
   },
   mounted() {
     this.checkLogin();
     this.getData();
+    productModalNew = new bootstrap.Modal(document.getElementById('productModal'));
+    messageModalNew = new bootstrap.Modal(document.getElementById('messageModal'));
   },
-  // computed: {
-  //   sortProducts() {
-  //     this.productData = this.productData.sort((a, b) =>
-  //       this.ascending
-  //         ? a[1][this.sortBy] - b[1][this.sortBy]
-  //         : b[1][this.sortBy] - a[1][this.sortBy]
-  //     );
-  //     return this.productData;
-  //   },
-  // },
   components: {
     messageModal,
     deleteProductModal,
-    editProductModal,
-    addProductModal,
+    productModal,
     pagination,
   },
 });
