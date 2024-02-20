@@ -27,6 +27,12 @@ const app = createApp({
                               badge: "元件化",
                               imgUrl: "./public/week2.png",
                               url:"./week4/login.html",
+                        },
+                        week5: {
+                              title: "第五週任務",
+                              badge: "進階語法介紹",
+                              imgUrl: "./public/week2.png",
+                              url:"./week5/index.html",
                         }
                   },
             };
